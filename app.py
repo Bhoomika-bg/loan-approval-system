@@ -11,6 +11,7 @@ loan_amount = st.number_input("Loan Amount ($)", 0)
 
 if st.button("Predict"):
     with open("model.pkl", "rb") as f:
-        model = pickle.load(f)
-    result = model.predict([[income, credit_score, dti, loans, loan_amount]])[0]
+        model, scaler = pickle.load(f)
+    data = scaler.transform([[income, credit_score, dti, loans, loan_amount]])
+    result = model.predict(data)[0]
     st.success("✅ Approved") if result == 1 else st.error("❌ Rejected")
