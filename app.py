@@ -14,4 +14,7 @@ if st.button("Predict"):
         model, scaler = pickle.load(f)
     data = scaler.transform([[income, credit_score, dti, loans, loan_amount]])
     result = model.predict(data)[0]
-    st.success("✅ Approved") if result == 1 else st.error("❌ Rejected")
+    if result == 1:
+        st.success("✅ Approved")
+    else:
+        st.error("❌ Rejected")
